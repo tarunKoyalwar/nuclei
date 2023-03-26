@@ -26,6 +26,10 @@ func (variables *Variable) JSONSchemaType() *jsonschema.Type {
 	return gotType
 }
 
+func (variables *Variable) MarshalYAML() (interface{}, error) {
+	return variables.InsertionOrderedStringMap, nil
+}
+
 func (variables *Variable) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	variables.InsertionOrderedStringMap = utils.InsertionOrderedStringMap{}
 	if err := unmarshal(&variables.InsertionOrderedStringMap); err != nil {
